@@ -5,7 +5,7 @@ USAGE:
 GOAL:
 
     Create a header file already prepared in your 'include' folder.
-    If you don't choose any name, your .h will be names 'my.h'.
+    If you don't choose any name, your .h will be named 'my.h'.
     Lot of includes are already set and the src folders's prototypes functions are set too.
 
 YOU MUST HAVE:

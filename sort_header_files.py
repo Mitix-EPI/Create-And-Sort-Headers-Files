@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+import os.path
+from os import path
+from os import listdir
+from os.path import isfile, join
+from os import walk
+
+def print_help():
+    print("\x1b[0;36;40m" + "USAGE:" + "\x1b[0m" +"\n\n   ./sort_header_file.py  <file header name>\n\n" + "\x1b[0;36;40m" + "GOAL:" + "\x1b[0m" + "\n\n   Create a header file already prepared in your include folder.\n\n   If you don't choose any name, your .h will be named 'my.h'.\n")
+    print("   Lot of includes are alreday set and the src folder's prototypes functions are set too.\n")
+    print("\x1b[0;36;40m" + "YOU MUST HAVE:" + "\x1b[0m" +"\n\n   A folder named 'src' which contains all your .c files.\n\n   A folder named 'include'.\n")
+    sys.exit(0)
+
+def print_header():
+    global f
+    global h_name
+
+    dirpath = os.getcwd()
+    name_folder = os.path.basename(dirpath)
+    name_define = h_name
+    name_define = name_define.upper()
+    name_define = list(name_define)
+    name_define[tmp - 2] = '_'
+    name_define.append('_')
+    name_define = "".join(name_define)
+    f.write("/*\n** EPITECH PROJECT, 2020\n** " + name_folder + "\n** File description:\n** " + h_name[0 : tmp - 2] + "\n*/\n\n#ifndef " + name_define + "\n#define " + name_define + "\n\n")
+
+def print_includes():
+    global f
+
+    f.write("#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <sys/types.h>\n#include <sys/stat.h>\n#include <time.h>\n#include <SFML/Audio.h>\n#include <SFML/Graphics.h>\n#include <SFML/Window/Export.h>\n#include <SFML/Window/Context.h>\n#include <SFML/Window.h>\n#include <SFML/Graphics/Rect.h>\n#include <SFML/Window/Window.h>\n#include <SFML/Graphics/Export.h>\n#include <pwd.h>\n#include <grp.h>\n#include <dirent.h>\n#include <sys/sysmacros.h>\n\n")
+
+def print_sort_prototypes():
+    global f
+
+    onlyfiles = [j for j in listdir("src/") if isfile(join("src/", j))]
+    for i in range(len(onlyfiles)):
+        g = open("src/" + onlyfiles[i], "r")
+        f.write("//" + onlyfiles[i] + "\n")
+        for line in g:
+            if line[0 : 3] == "int" or line[0 : 4] == "char" or line[0 : 4] == "void" or line[0 : 6] == "struct":
+                f.write(line[0 : -1] + ";\n")
+        f.write("\n")
+        g.close()
+
+
+def print_endif():
+    global f
+    global h_name
+
+    name_define = h_name
+    name_define = name_define.upper()
+    name_define = list(name_define)
+    name_define[tmp - 2] = '_'
+    name_define.append('_')
+    name_define = "".join(name_define)
+    f.write("#endif /* !" + name_define + " */")
+
+CRED = '\033[91m'
+CEND = '\033[0m'
+CGREENTXT = '\033[32m'
+
+CGREEN = '\x1b[6;30;42m'
+CGREENEND = '\x1b[0m'
+
+if (len(sys.argv) == 2 and sys.argv[1] == "-h"):
+    print_help()
+    exit(0)
+
+if (len(sys.argv) == 1):
+    h_name = "my.h"
+    tmp = len(h_name)
+elif (len(sys.argv) == 2):
+    h_name = sys.argv[1]
+    tmp = len(h_name)
+    if (h_name[tmp - 1] != 'h' or h_name[tmp - 2] != '.'):
+        sys.stderr.write(CRED + "Error name. Argument should be a .h file name.\n" + CEND)
+        sys.exit(84)
+else:
+    sys.stderr.write(CRED + "Error. Should have one or 0 arguments. Check -h.\n" + CEND)
+    sys.exit(84)
+
+if (not (path.exists("include/")) or not(path.exists("src/"))):
+    sys.stderr.write(CRED + "Error. folder include and/or src not existing\n" + CEND)
+    sys.exit(84)
+
+if (path.exists("include/" + h_name)):
+    sys.stderr.write(CRED + "Error. File named '" + h_name + "' already exists.\n" + CEND)
+    sys.exit(84)
+
+f = open("include/" + h_name, "a")
+print_header()
+print_includes()
+print_sort_prototypes()
+print_endif()
+f.close()
+print(CGREEN + "SUCCESS!" + CGREENEND + "\n\n" + CGREENTXT + "'" + h_name + "' is created.\n", CEND)
+exit(0)

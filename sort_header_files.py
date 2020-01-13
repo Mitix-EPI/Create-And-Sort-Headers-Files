@@ -38,15 +38,13 @@ def print_sort_prototypes():
 
     onlyfiles = [j for j in listdir("src/") if isfile(join("src/", j))]
     for i in range(len(onlyfiles)):
-        if (onlyfiles[-1] == "c"):
-            print(onlyfiles)
-            g = open("src/" + onlyfiles[i], "r")
-            f.write("//" + onlyfiles[i] + "\n")
-            for line in g:
-                if line[0 : 3] == "int" or line[0 : 4] == "char" or line[0 : 4] == "void" or line[0 : 6] == "struct":
-                    f.write(line[0 : -1] + ";\n")
-            f.write("\n")
-            g.close()
+        g = open("src/" + onlyfiles[i], "r")
+        f.write("//" + onlyfiles[i] + "\n")
+        for line in g:
+            if line[0 : 3] == "int" or line[0 : 4] == "char" or line[0 : 4] == "void" or line[0 : 6] == "struct":
+                f.write(line[0 : -1] + ";\n")
+        f.write("\n")
+        g.close()
 
 
 def print_endif():

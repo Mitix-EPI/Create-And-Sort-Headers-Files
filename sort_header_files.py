@@ -31,20 +31,22 @@ def print_header():
 def print_includes():
     global f
 
-    f.write("#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <sys/types.h>\n#include <sys/stat.h>\n#include <time.h>\n#include <SFML/Audio.h>\n#include <SFML/Graphics.h>\n#include <SFML/Window/Export.h>\n#include <SFML/Window/Context.h>\n#include <SFML/Window.h>\n#include <SFML/Graphics/Rect.h>\n#include <SFML/Window/Window.h>\n#include <SFML/Graphics/Export.h>\n#include <pwd.h>\n#include <grp.h>\n#include <dirent.h>\n#include <sys/sysmacros.h>\n\n")
+    f.write("#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <sys/types.h>\n#include <sys/stat.h>\n#include <time.h>\n#include <SFML/Audio.h>\n#include <SFML/Graphics.h>\n#include <SFML/Window/Export.h>\n#include <SFML/Window/Context.h>\n#include <SFML/Window.h>\n#include <SFML/Graphics/Rect.h>\n#include <SFML/Window/Window.h>\n#include <SFML/Graphics/Export.h>\n#include <pwd.h>\n#include <grp.h>\n#include <dirent.h>\n#include <sys/sysmacros.h>\n#include <signal.h>\n#include <sys/wait.h>\n\n")
 
 def print_sort_prototypes():
     global f
 
     onlyfiles = [j for j in listdir("src/") if isfile(join("src/", j))]
     for i in range(len(onlyfiles)):
-        g = open("src/" + onlyfiles[i], "r")
-        f.write("//" + onlyfiles[i] + "\n")
-        for line in g:
-            if line[0 : 3] == "int" or line[0 : 4] == "char" or line[0 : 4] == "void" or line[0 : 6] == "struct":
-                f.write(line[0 : -1] + ";\n")
-        f.write("\n")
-        g.close()
+        if (onlyfiles[-1] == "c"):
+            print(onlyfiles)
+            g = open("src/" + onlyfiles[i], "r")
+            f.write("//" + onlyfiles[i] + "\n")
+            for line in g:
+                if line[0 : 3] == "int" or line[0 : 4] == "char" or line[0 : 4] == "void" or line[0 : 6] == "struct":
+                    f.write(line[0 : -1] + ";\n")
+            f.write("\n")
+            g.close()
 
 
 def print_endif():

@@ -2,6 +2,8 @@ USAGE:
 
     ./sort_header_file.py  <file header name>
 
+    You can add '-CSFML' to have SFML includes
+
 GOAL:
 
     Create a header file already prepared in your 'include' folder.

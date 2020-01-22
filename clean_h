@@ -32,6 +32,10 @@ def print_includes():
     global f
 
     f.write("#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <sys/types.h>\n#include <sys/stat.h>\n#include <time.h>\n#include <pwd.h>\n#include <grp.h>\n#include <dirent.h>\n#include <sys/sysmacros.h>\n#include <signal.h>\n#include <sys/wait.h>\n\n")
+    for x in range(len(sys.argv)):
+        if (sys.argv[x] == "-CSFML"):
+            f.write("#include <SFML/Audio.h>\n#include <SFML/Graphics.h>\n#include <SFML/Window/Export.h>\n#include <SFML/Window/Context.h>\n#include <SFML/Window.h>\n#include <SFML/Graphics/Rect.h>\n#include <SFML/Window/Window.h>\n#include <SFML/Graphics/Export.h>\n\n")
+
 
 def print_sort_prototypes():
     global f
@@ -70,13 +74,13 @@ if (len(sys.argv) == 2 and sys.argv[1] == "-h"):
     print_help()
     exit(0)
 
-if (len(sys.argv) == 1):
+if (len(sys.argv) == 1 or sys.argv[1] == "-CSFML"):
     h_name = "my.h"
     tmp = len(h_name)
 elif (len(sys.argv) == 2):
     h_name = sys.argv[1]
     tmp = len(h_name)
-    if (h_name[tmp - 1] != 'h' or h_name[tmp - 2] != '.'):
+    if ((h_name[tmp - 1] != 'h' or h_name[tmp - 2] != '.')):
         sys.stderr.write(CRED + "Error name. Argument should be a .h file name.\n" + CEND)
         sys.exit(84)
 else:

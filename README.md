@@ -1,6 +1,6 @@
 USAGE:
 
-    ./sort_header_file.py  <file header name>
+    ./clean_h  <file header name>
 
     You can add '-CSFML' to have SFML includes
 

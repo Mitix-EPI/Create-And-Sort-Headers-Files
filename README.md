@@ -4,6 +4,11 @@ USAGE:
 
     You can add '-CSFML' to have SFML includes
 
+FLAGS:
+
+    -CSFML -> add CSFML libraries includes
+    -u -> update a .h which already exist
+
 GOAL:
 
     Create a header file already prepared in your 'include' folder.

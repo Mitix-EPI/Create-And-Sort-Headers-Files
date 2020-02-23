@@ -31,7 +31,7 @@ def print_header():
 def print_includes():
     global f
 
-    f.write("#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <sys/types.h>\n#include <sys/stat.h>\n#include <time.h>\n#include <pwd.h>\n#include <grp.h>\n#include <dirent.h>\n#include <sys/sysmacros.h>\n#include <signal.h>\n#include <sys/wait.h>\n#include <string.h>\n#include <errno.h>\n#include <fcntl.h>\n")
+    f.write("#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <sys/types.h>\n#include <sys/stat.h>\n#include <time.h>\n#include <pwd.h>\n#include <grp.h>\n#include <dirent.h>\n#include <sys/sysmacros.h>\n#include <signal.h>\n#include <sys/wait.h>\n#include <string.h>\n#include <errno.h>\n#include <fcntl.h>\n\n")
     for x in range(len(sys.argv)):
         if (sys.argv[x] == "-CSFML"):
             f.write("#include <SFML/Audio.h>\n#include <SFML/Graphics.h>\n#include <SFML/Window/Export.h>\n#include <SFML/Window/Context.h>\n#include <SFML/Window.h>\n#include <SFML/Graphics/Rect.h>\n#include <SFML/Window/Window.h>\n#include <SFML/Graphics/Export.h>\n\n")

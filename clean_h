@@ -45,8 +45,8 @@ def print_sort_prototypes():
         g = open("src/" + onlyfiles[i], "r")
         f.write("//" + onlyfiles[i] + "\n")
         for line in g:
-            if (line[len(line) - 2: len(line)] == ")\n"):
-                f.write(line[0 : -1] + ";\n")
+            if line[0: 4] == "char" or line[0: 3] == "int" or line[0: 4] == "void" or line[0: 6] == "struct":
+                f.write(line[0:-1]+";\n")
         f.write("\n")
         g.close()
 
